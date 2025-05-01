@@ -148,7 +148,7 @@ FROM cte
 GROUP BY rider_id, DATEDIFF(DAY, drnk, trip_start_timestamp)
 HAVING DATEDIFF(DAY, MIN(trip_start_timestamp), MAX(trip_start_timestamp)) = 9; 
 
-
+-- or
 
 WITH cte AS (
 SELECT *, DENSE_RANK() OVER(PARTITION BY rider_id ORDER BY trip_start_timestamp) AS drnk
@@ -290,6 +290,7 @@ FROM (
 ) G
 WHERE first_order_date IS NOT NULL;
 
+-- or
 
 with cte as(
 	select *,
@@ -340,6 +341,7 @@ FROM Logs
 GROUP BY Num
 HAVING COUNT(*) >= 3
 
+-- or	
 
 select distinct Num
 from(
@@ -394,6 +396,7 @@ SELECT num_sequence, STRING_AGG(number, ', ') AS num, COUNT(1) AS sequence_lengt
 FROM cte2
 GROUP BY num_sequence;
 
+-- or
 
 with cte as(
 	select number,
@@ -453,6 +456,3 @@ SELECT ps.status AS 'member vs non member', 100 * SUM(CASE WHEN t.is_promo = 1 T
 FROM Pass_Subscriptions ps
 INNER JOIN Trips1 t ON ps.user_id = t.user_id
 GROUP BY ps.status;
-
-
-
